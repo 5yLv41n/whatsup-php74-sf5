@@ -1,23 +1,49 @@
 {
     "type": "project",
     "license": "proprietary",
+    "name": "5ylv41n/whatsup-php74-sf5",
+    "description": "Using the new PHP 7.4 features in symfony 5.0",
+    "version": "1.0.0",
+    "keywords": ["PHP 7.4", "Symfony 5.0", "DTO", "Tests", "Api"],
+    "authors": [
+        {
+            "name": "Sylvain Laurent",
+            "email": "niavlys95@gmail.com",
+            "homepage": "https://github.com/5yLv41n/whatsup-php74-sf5",
+            "role": "Developer"
+        }
+    ],
     "require": {
-        "php": "^7.2.5",
+        "php": "7.4.*",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
+        "knplabs/doctrine-behaviors": "^2.0",
+        "paragonie/sodium_compat": "^1.12",
+        "sensio/framework-extra-bundle": "^5.5",
         "symfony/console": "5.0.*",
         "symfony/dotenv": "5.0.*",
         "symfony/flex": "^1.3.1",
         "symfony/framework-bundle": "5.0.*",
+        "symfony/orm-pack": "^1.0",
+        "symfony/polyfill-uuid": "^1.13",
+        "symfony/security-bundle": "5.0.*",
+        "symfony/validator": "5.0.*",
         "symfony/yaml": "5.0.*"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.3",
+        "roave/security-advisories": "dev-master",
+        "symfony/maker-bundle": "^1.14",
+        "symfony/phpunit-bridge": "^5.0"
     },
     "config": {
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "vendor-dir": "vendor",
+        "bin-dir": "bin"
     },
     "autoload": {
         "psr-4": {
@@ -33,6 +59,8 @@
         "paragonie/random_compat": "2.*",
         "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php73": "*",
         "symfony/polyfill-php72": "*",
         "symfony/polyfill-php71": "*",
         "symfony/polyfill-php70": "*",
