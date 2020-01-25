@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  whatsup74-database:
+    container_name: whatsup74-database
+    build:
+      context: ./docker/database
+    restart: always
+    env_file:
+      - ".env"
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_DATABASE=${DATABASE_NAME}
+      - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - database:/var/lib/mysql
+    command: >
+      --sql_mode="NO_ENGINE_SUBSTITUTION"
+      --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+      --max_allowed_packet=32505856
+
+  whatsup74-php-fpm:
+    container_name: whatsup74-php-fpm
+    build:
+      context: ./docker/php-fpm
+    depends_on:
+      - whatsup74-database
+    environment:
+      - APP_ENV=${APP_ENV}
+      - APP_SECRET=${APP_SECRET}
+      - DATABASE_URL=mysql://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_NAME}-database:3306/${DATABASE_NAME}?serverVersion=5.7
+    volumes:
+      - ./:/var/www
+
+  whatsup74-nginx:
+    container_name: whatsup74-nginx
+    build:
+      context: ./docker/nginx
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/sites/:/etc/nginx/sites-available
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d
+      - ./docker/logs:/var/log
+    depends_on:
+      - whatsup74-php-fpm
+    ports:
+      - "80:80"
+
+volumes:
+  database:
