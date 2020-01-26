@@ -27,7 +27,7 @@ class BookController
 
     /**
      * @param Request $request
-     * @Route("/books", name="book_add", methods={"POST"})
+     * @Route("/book", name="book_add", methods={"POST"})
      * @return JsonResponse
      */
     public function add(Request $request): JsonResponse
@@ -44,8 +44,8 @@ class BookController
 
     /**
      * @param Request $request
-     * @Route("/book/{book_id}", name="book_update", methods={"PUT"})
-     * @ParamConverter("book", class="App\Entity\Book", options={"mapping": {"book_id" : "id"}})
+     * @Route("/book/{book_isbn}", name="book_update", methods={"PUT"})
+     * @ParamConverter("book", class="App\Entity\Book", options={"mapping": {"book_isbn" : "isbn"}})
      * @return JsonResponse
      */
     public function update(Book $book, Request $request): JsonResponse
@@ -61,8 +61,8 @@ class BookController
     }
 
     /**
-     * @Route("/book/{book_id}", name="book_show", methods={"GET"})
-     * @ParamConverter("book", class="App\Entity\Book", options={"mapping": {"book_id" : "id"}})
+     * @Route("/book/{book_isbn}", name="book_show", methods={"GET"})
+     * @ParamConverter("book", class="App\Entity\Book", options={"mapping": {"book_isbn" : "isbn"}})
      * @return JsonResponse
      */
     public function show(Book $book): JsonResponse
