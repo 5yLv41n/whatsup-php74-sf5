@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\DTO\BookDTO;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 use Knp\DoctrineBehaviors\Contract\Entity\BlameableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\SoftDeletableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
@@ -18,7 +19,7 @@ use Symfony\Polyfill\Uuid\Uuid;
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
  * @UniqueEntity(fields={"isbn"}, message="ISBN already exists")
  */
-class Book implements BlameableInterface, TimestampableInterface, SoftDeletableInterface
+class Book implements BlameableInterface, TimestampableInterface, SoftDeletableInterface, JsonSerializable
 {
     use BlameableTrait, TimestampableTrait, SoftDeletableTrait;
 
@@ -30,7 +31,6 @@ class Book implements BlameableInterface, TimestampableInterface, SoftDeletableI
 
     /**
      * @ORM\Column(type="string", length=30, unique=true)
-     * @
      */
     private string $isbn;
 
@@ -115,5 +115,15 @@ class Book implements BlameableInterface, TimestampableInterface, SoftDeletableI
     public function getPublishingDate(): DateTimeImmutable
     {
         return $this->publishingDate;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'isbn' => $this->isbn,
+            'title'=> $this->title,
+            'description'=> $this->description,
+            'publishingDate'=> $this->publishingDate->format('c')
+        ];
     }
 }

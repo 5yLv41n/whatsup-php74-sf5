@@ -8,6 +8,7 @@ use App\DTO\BookDTO;
 use App\DTO\BookShow;
 use App\DTO\BookUpdate;
 use App\Entity\Book;
+use App\Repository\BookRepository;
 use App\Service\BookService;
 use InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -68,5 +69,15 @@ class BookController
     public function show(Book $book): JsonResponse
     {
         return new JsonResponse(BookShow::createFrom($book), Response::HTTP_ACCEPTED);
+    }
+
+    /**
+     * @Route("/books", name="book_list", methods={"GET"})
+     * @param BookRepository $bookRepository
+     * @return JsonResponse
+     */
+    public function list(BookRepository $bookRepository): JsonResponse
+    {
+        return new JsonResponse($bookRepository->findAll());
     }
 }
