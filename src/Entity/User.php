@@ -15,17 +15,17 @@ class User implements UserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private string $email;
+    protected string $email;
 
     /**
      * @ORM\Column(type="json")
      */
-    private array $roles = [];
+    protected array $roles = [];
 
     /**
      * @var string The hashed password
@@ -33,21 +33,10 @@ class User implements UserInterface
      */
     private string $password;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
+    public function __construct(string $email, array $roles)
     {
         $this->email = $email;
-
-        return $this;
+        $this->roles = $roles;
     }
 
     /**
@@ -70,13 +59,6 @@ class User implements UserInterface
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
     }
 
     /**
