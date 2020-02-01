@@ -24,10 +24,10 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager): void
     {
-         $user = new User('niavlys95@gmail.com', ['ROLE_ADMIN']);
-         $password = $this->passwordEncoder->encodePassword($user, 'p4ssW0rd');
-         $user->setPassword($password);
-         $manager->persist($user);
+        $user = new User('niavlys95@gmail.com', ['ROLE_ADMIN']);
+        $password = $this->passwordEncoder->encodePassword($user, 'p4ssW0rd');
+        $user->setPassword($password);
+        $manager->persist($user);
 
         $manager->flush();
     }
