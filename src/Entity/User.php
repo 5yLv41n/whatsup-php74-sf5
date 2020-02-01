@@ -33,10 +33,16 @@ class User implements UserInterface
      */
     private string $password;
 
+    /**
+     * @ORM\Column(type="string", unique=true, nullable=true)
+     */
+    private string $apiToken;
+
     public function __construct(string $email, array $roles)
     {
         $this->email = $email;
         $this->roles = $roles;
+        $this->apiToken = $this->generateToken();
     }
 
     /**
@@ -91,5 +97,10 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    private function generateToken(int $length = 20): string
+    {
+        return bin2hex(random_bytes($length));
     }
 }
