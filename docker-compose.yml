@@ -29,10 +29,6 @@ services:
       context: ./docker/php-fpm
     depends_on:
       - whatsup74-database
-    environment:
-      - APP_ENV=${APP_ENV}
-      - APP_SECRET=${APP_SECRET}
-      - DATABASE_URL=mysql://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_NAME}-database:3306/${DATABASE_NAME}?serverVersion=5.7
     volumes:
       - ./:/var/www
 
