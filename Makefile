@@ -2,9 +2,9 @@
 
 DOCKER_DATABASE=whatsup74-database
 DOCKER_PHP=whatsup74-php-fpm
-
 DOCKER_PHP_EXEC=docker-compose exec -T ${DOCKER_PHP}
 DOCKER_DB_EXEC=docker-compose exec -T ${DOCKER_DATABASE}
+DB_VOLUME=whatsup-php74-sf5_database
 
 .DEFAULT_GOAL := help
 .PHONY: help
@@ -28,6 +28,16 @@ down: ## Stop containers
 restart: ## Restart containers
 	@make down
 	@make up
+
+.PHONY: reset
+reset: ## Reset containers and volumes
+	@make down
+	@make volume-db-remove
+
+.PHONY: volume-db-remove
+volume-db-remove: ## Remove volume database
+	@echo "--> remove volume ..."
+	@docker volume rm ${DB_VOLUME}
 
 .PHONY: logs-database
 logs-database: ## Logs database
