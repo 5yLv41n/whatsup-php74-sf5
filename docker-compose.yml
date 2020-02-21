@@ -19,9 +19,7 @@ services:
     volumes:
       - database:/var/lib/mysql
     command: >
-      --sql_mode="NO_ENGINE_SUBSTITUTION"
       --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-      --max_allowed_packet=32505856
 
   whatsup74-php-fpm:
     container_name: whatsup74-php-fpm
