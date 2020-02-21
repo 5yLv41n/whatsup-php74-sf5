@@ -3,26 +3,21 @@
 namespace App\Entity;
 
 use App\DTO\BookDTO;
+use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
-use Knp\DoctrineBehaviors\Contract\Entity\BlameableInterface;
-use Knp\DoctrineBehaviors\Contract\Entity\SoftDeletableInterface;
-use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
-use Knp\DoctrineBehaviors\Model\Blameable\BlameableTrait;
-use Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletableTrait;
-use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Polyfill\Uuid\Uuid;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
  * @UniqueEntity(fields={"isbn"}, message="ISBN already exists")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=true)
  */
-class Book implements BlameableInterface, TimestampableInterface, SoftDeletableInterface, JsonSerializable
+class Book implements JsonSerializable
 {
-    use BlameableTrait, TimestampableTrait, SoftDeletableTrait;
-
     /**
      * @ORM\Id()
      * @ORM\Column(type="guid")
@@ -43,6 +38,42 @@ class Book implements BlameableInterface, TimestampableInterface, SoftDeletableI
      * @ORM\Column(type="text")
      */
     private string $description;
+
+    /**
+     * @var DateTime $createdAt
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private DateTime $createdAt;
+
+    /**
+     * @var DateTime $updatedAt
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private DateTime $updatedAt;
+
+    /**
+     * @var DateTime|null $deletedAt
+     * @ORM\Column(type="datetime")
+     */
+    private ?DateTime $deletedAt;
+
+    /**
+     * @var User|null $createdBy
+     * @Gedmo\Blameable(on="create")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
+     */
+    private ?User $createdBy;
+
+    /**
+     * @var User|null $updatedBy
+     * @Gedmo\Blameable(on="update")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id")
+     */
+    private ?User $updatedBy;
 
     /**
      * @ORM\Column(type="datetime_immutable")
