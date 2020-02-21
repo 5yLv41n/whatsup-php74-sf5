@@ -6,11 +6,17 @@ use App\DTO\BookCreate;
 use App\Entity\Book;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class BookFixtures extends Fixture
+class BookFixtures extends Fixture implements FixtureGroupInterface
 {
     private const NB_BOOKS = 10;
+
+    public static function getGroups(): array
+    {
+        return ['books'];
+    }
 
     public function load(ObjectManager $objectManager): void
     {
