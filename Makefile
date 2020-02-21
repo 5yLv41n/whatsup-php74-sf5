@@ -60,14 +60,19 @@ migration: ## Migrate schema
 	@${DOCKER_PHP_EXEC} bin/console doctrine:migration:migrate --no-interaction
 
 .PHONY: fixtures-all
-fixtures: ## Create all fixtures and keep data
+fixtures-all: ## Create all fixtures and keep data
 	@echo "--> Make fixtures ..."
 	@${DOCKER_PHP_EXEC} bin/console doctrine:fixtures:load --append --no-interaction
 
 .PHONY: fixtures-users
 fixtures-users: ## Create users fixtures and keeping the data
-	@echo "--> Make fixtures ..."
+	@echo "--> Make users fixtures ..."
 	@${DOCKER_PHP_EXEC} bin/console doctrine:fixtures:load --append --no-interaction --group=users
+
+.PHONY: fixtures-books
+fixtures-books: ## Create books fixtures and keeping the data
+	@echo "--> Make books fixtures ..."
+	@${DOCKER_PHP_EXEC} bin/console doctrine:fixtures:load --append --no-interaction --group=books
 
 .PHONY: tests
 tests: ## Run tests
