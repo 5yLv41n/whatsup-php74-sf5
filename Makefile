@@ -22,7 +22,7 @@ start: ## Start containers
 .PHONY: stop
 stop: ## Stop containers
 	@echo "--> stop containers ..."
-	@docker-compose stop
+	@docker-compose down
 
 .PHONY: restart
 restart: ## Restart containers
@@ -72,7 +72,7 @@ fixtures-books: ## Create books fixtures and keeping the data
 .PHONY: tests
 tests: ## Run tests
 	@echo "--> Run tests ..."
-	@${DOCKER_PHP_EXEC} bin/console doctrine:database:drop --env=test --force
+	@${DOCKER_PHP_EXEC} bin/console doctrine:database:drop --env=test --force --if-exists
 	@${DOCKER_PHP_EXEC} bin/console doctrine:database:create --env=test
 	@${DOCKER_PHP_EXEC} bin/console doctrine:schema:create --env=test
 	@${DOCKER_PHP_EXEC} bin/phpunit --testdox tests/
