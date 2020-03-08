@@ -34,6 +34,13 @@ volume-db-remove: ## Remove volume database
 	@echo "--> remove volume ..."
 	@docker volume rm ${DB_VOLUME}
 
+.PHONY: reset
+reset: ## Remove containers and volumes and start all
+	@echo "--> reset containers ..."
+	@make stop
+	@make volume-db-remove
+	@make start
+
 .PHONY: logs-database
 logs-database: ## Logs database
 	@docker-compose logs ${DOCKER_DATABASE}
