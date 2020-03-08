@@ -30,8 +30,14 @@ class UserFixtures extends Fixture implements FixtureGroupInterface, OrderedFixt
         $password = $this->passwordEncoder->encodePassword($user, 'p4ssW0rd');
         $user->setPassword($password);
         $manager->persist($user);
-        $manager->flush();
         $this->addReference(self::USER_REFERENCE, $user);
+
+        $user = new User('test_user@gmail.com', ['ROLE_ADMIN']);
+        $password = $this->passwordEncoder->encodePassword($user, 'p4ssW0rd');
+        $user->setPassword($password);
+        $manager->persist($user);
+
+        $manager->flush();
     }
 
     public function getOrder()
