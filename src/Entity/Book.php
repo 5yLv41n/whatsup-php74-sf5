@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
  * @UniqueEntity(fields={"isbn"}, message="ISBN already exists")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=true)
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class Book implements JsonSerializable
 {
@@ -40,21 +40,18 @@ class Book implements JsonSerializable
     private string $description;
 
     /**
-     * @var DateTime $createdAt
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private DateTime $createdAt;
 
     /**
-     * @var DateTime $updatedAt
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      */
     private DateTime $updatedAt;
 
     /**
-     * @var DateTime|null $deletedAt
      * @ORM\Column(type="datetime", nullable=true)
      */
     private ?DateTime $deletedAt;
@@ -64,7 +61,17 @@ class Book implements JsonSerializable
      */
     private DateTimeImmutable $publishingDate;
 
-    private function __construct(string $isbn, string $title, string $description, DateTimeImmutable $publishingDate)
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="created_by")
+     */
+    private User $createdBy;
+
+    private function __construct(
+        string $isbn,
+        string $title,
+        string $description,
+        DateTimeImmutable $publishingDate)
     {
         $this->setId();
         $this->isbn = $isbn;
@@ -75,7 +82,11 @@ class Book implements JsonSerializable
 
     public static function createFrom(BookDTO $bookDTO): Book
     {
-        return new self($bookDTO->isbn->value, $bookDTO->title, $bookDTO->description, $bookDTO->publishingDate);
+        return new self(
+            $bookDTO->isbn->value,
+            $bookDTO->title,
+            $bookDTO->description,
+            $bookDTO->publishingDate);
     }
 
     private function setId(): void
@@ -140,5 +151,15 @@ class Book implements JsonSerializable
             'description'=> $this->description,
             'publishingDate'=> $this->publishingDate->format('c')
         ];
+    }
+
+    public function setCreatedBy(User $user): void
+    {
+        $this->createdBy = $user;
+    }
+
+    public function getCreatedBy(): User
+    {
+        return $this->createdBy;
     }
 }
