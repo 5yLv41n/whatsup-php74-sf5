@@ -55,25 +55,9 @@ class Book implements JsonSerializable
 
     /**
      * @var DateTime|null $deletedAt
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private ?DateTime $deletedAt;
-
-    /**
-     * @var User|null $createdBy
-     * @Gedmo\Blameable(on="create")
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
-     */
-    private ?User $createdBy;
-
-    /**
-     * @var User|null $updatedBy
-     * @Gedmo\Blameable(on="update")
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(name="updated_by", referencedColumnName="id")
-     */
-    private ?User $updatedBy;
 
     /**
      * @ORM\Column(type="datetime_immutable")
