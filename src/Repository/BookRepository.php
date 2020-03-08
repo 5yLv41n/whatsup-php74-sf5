@@ -6,6 +6,8 @@ use App\Entity\Book;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\ORMException;
+use RuntimeException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 /**
@@ -28,6 +30,16 @@ class BookRepository extends ServiceEntityRepository
             $this->_em->flush();
         } catch (UniqueConstraintViolationException $e) {
             throw new ConflictHttpException('Duplicate entry');
+        }
+    }
+
+    public function delete(Book $book): void
+    {
+        try {
+            $this->_em->remove($book);
+            $this->_em->flush();
+        } catch (ORMException $ORMException) {
+            throw new RuntimeException($ORMException->getMessage());
         }
     }
 }

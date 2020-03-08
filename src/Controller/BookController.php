@@ -4,25 +4,24 @@
 namespace App\Controller;
 
 use App\DTO\BookCreate;
-use App\DTO\BookDTO;
 use App\DTO\BookShow;
 use App\DTO\BookUpdate;
 use App\Entity\Book;
 use App\Repository\BookRepository;
 use App\Service\BookService;
 use InvalidArgumentException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class BookController
- * @package App\Controller
  * @Route("/api")
  */
-class BookController
+class BookController extends AbstractController
 {
     private BookService $bookService;
 
@@ -32,9 +31,7 @@ class BookController
     }
 
     /**
-     * @param Request $request
      * @Route("/book", name="book_add", methods={"POST"})
-     * @return JsonResponse
      */
     public function add(Request $request): JsonResponse
     {
@@ -49,10 +46,8 @@ class BookController
     }
 
     /**
-     * @param Request $request
      * @Route("/book/{book_isbn}", name="book_update", methods={"PUT"})
      * @ParamConverter("book", class="App\Entity\Book", options={"mapping": {"book_isbn" : "isbn"}})
-     * @return JsonResponse
      */
     public function update(Book $book, Request $request): JsonResponse
     {
@@ -69,7 +64,6 @@ class BookController
     /**
      * @Route("/book/{book_isbn}", name="book_show", methods={"GET"})
      * @ParamConverter("book", class="App\Entity\Book", options={"mapping": {"book_isbn" : "isbn"}})
-     * @return JsonResponse
      */
     public function show(Book $book): JsonResponse
     {
@@ -78,11 +72,21 @@ class BookController
 
     /**
      * @Route("/books", name="book_list", methods={"GET"})
-     * @param BookRepository $bookRepository
-     * @return JsonResponse
      */
     public function list(BookRepository $bookRepository): JsonResponse
     {
         return new JsonResponse($bookRepository->findAll());
+    }
+
+    /**
+     * @Route("/book/{book_isbn}", name="book_delete", methods={"DELETE"})
+     * @ParamConverter("book", class="App\Entity\Book", options={"mapping": {"book_isbn" : "isbn"}})
+     * @IsGranted("delete", subject="book")
+     */
+    public function delete(Book $book): JsonResponse
+    {
+        $this->bookService->delete($book);
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }

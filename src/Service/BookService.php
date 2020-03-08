@@ -19,4 +19,9 @@ class BookService
     {
         $this->bookRepository->save($book);
     }
+
+    public function delete(Book $book): void
+    {
+        $this->bookRepository->delete($book);
+    }
 }
