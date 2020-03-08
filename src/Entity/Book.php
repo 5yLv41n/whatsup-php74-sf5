@@ -71,8 +71,8 @@ class Book implements JsonSerializable
         string $isbn,
         string $title,
         string $description,
-        DateTimeImmutable $publishingDate)
-    {
+        DateTimeImmutable $publishingDate
+    ) {
         $this->setId();
         $this->isbn = $isbn;
         $this->title = $title;
@@ -86,7 +86,8 @@ class Book implements JsonSerializable
             $bookDTO->isbn->value,
             $bookDTO->title,
             $bookDTO->description,
-            $bookDTO->publishingDate);
+            $bookDTO->publishingDate
+        );
     }
 
     private function setId(): void
