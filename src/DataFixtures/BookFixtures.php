@@ -7,9 +7,10 @@ use App\Entity\Book;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class BookFixtures extends Fixture implements FixtureGroupInterface
+class BookFixtures extends Fixture implements FixtureGroupInterface, OrderedFixtureInterface
 {
     private const NB_BOOKS = 10;
 
@@ -39,5 +40,10 @@ class BookFixtures extends Fixture implements FixtureGroupInterface
                 'publishingDate' => (new DateTimeImmutable())->format('e'),
             ];
         }
+    }
+
+    public function getOrder()
+    {
+        return 20;
     }
 }
