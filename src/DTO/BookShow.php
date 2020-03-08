@@ -57,9 +57,9 @@ class BookShow extends BookDTOAbstract implements JsonSerializable
     {
         return [
             'isbn' => $this->isbn->value,
-            'title'=> $this->title,
-            'description'=> $this->description,
-            'publishingDate'=> $this->publishingDate->format('c')
+            'title' => $this->title,
+            'description' => $this->description,
+            'publishingDate' => $this->publishingDate->format('c'),
         ];
     }
 }
