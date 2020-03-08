@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200128053425 extends AbstractMigration
+final class VersionBook extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,8 +22,17 @@ final class Version20200128053425 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE user ADD api_token VARCHAR(255) DEFAULT NULL');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D6497BA2F5EB ON user (api_token)');
+        $this->addSql('CREATE TABLE book 
+        (id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', 
+        isbn VARCHAR(30) NOT NULL, 
+        title VARCHAR(100) NOT NULL, 
+        description LONGTEXT NOT NULL,
+        created_at DATETIME DEFAULT NULL,
+        updated_at DATETIME DEFAULT NULL,
+        deleted_at DATETIME DEFAULT NULL,
+        publishing_date DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', 
+        UNIQUE INDEX UNIQ_ISBN (isbn), 
+        PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
     }
 
     public function down(Schema $schema) : void
@@ -31,7 +40,6 @@ final class Version20200128053425 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP INDEX UNIQ_8D93D6497BA2F5EB ON user');
-        $this->addSql('ALTER TABLE user DROP api_token');
+        $this->addSql('DROP TABLE book');
     }
 }
