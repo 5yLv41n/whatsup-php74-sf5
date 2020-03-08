@@ -1,3 +1,3 @@
-FROM mariadb:10.3.21
+FROM mysql:8.0
 CMD ["mysqld"]
 EXPOSE 3306
