@@ -21,10 +21,12 @@ class BookFixtures extends Fixture implements FixtureGroupInterface, OrderedFixt
 
     public function load(ObjectManager $objectManager): void
     {
+        $user = $this->getReference(UserFixtures::USER_REFERENCE);
         foreach ($this->generateBook() as $bookGenerated) {
             $json = json_encode($bookGenerated);
             $bookDTO = BookCreate::createFromJson($json);
             $book = Book::createFrom($bookDTO);
+            $book->setCreatedBy($user);
             $objectManager->persist($book);
         }
         $objectManager->flush();

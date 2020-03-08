@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture implements FixtureGroupInterface, OrderedFixtureInterface
 {
+    public const USER_REFERENCE = 'created-by';
     private UserPasswordEncoderInterface $passwordEncoder;
 
     public static function getGroups(): array
@@ -30,6 +31,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface, OrderedFixt
         $user->setPassword($password);
         $manager->persist($user);
         $manager->flush();
+        $this->addReference(self::USER_REFERENCE, $user);
     }
 
     public function getOrder()
