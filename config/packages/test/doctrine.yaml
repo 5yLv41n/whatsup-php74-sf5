@@ -1,0 +1,5 @@
+# config/packages/test/doctrine.yaml
+doctrine:
+  dbal:
+    driver: 'mysql'
+    url: '%env(resolve:DATABASE_URL)%'
