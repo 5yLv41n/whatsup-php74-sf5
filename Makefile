@@ -14,25 +14,20 @@ help:
 
 # make tests
 
-.PHONY: up
-up: ## Start containers
+.PHONY: start
+start: ## Start containers
 	@echo "--> start containers ..."
 	@docker-compose up -d
 
-.PHONY: down
-down: ## Stop containers
+.PHONY: stop
+stop: ## Stop containers
 	@echo "--> stop containers ..."
-	@docker-compose down
+	@docker-compose stop
 
 .PHONY: restart
 restart: ## Restart containers
-	@make down
-	@make up
-
-.PHONY: reset
-reset: ## Reset containers and volumes
-	@make down
-	@make volume-db-remove
+	@make stop
+	@make start
 
 .PHONY: volume-db-remove
 volume-db-remove: ## Remove volume database
@@ -77,4 +72,12 @@ fixtures-books: ## Create books fixtures and keeping the data
 .PHONY: tests
 tests: ## Run tests
 	@echo "--> Run tests ..."
+	@${DOCKER_PHP_EXEC} bin/console doctrine:database:drop --env=test --force
+	@${DOCKER_PHP_EXEC} bin/console doctrine:database:create --env=test
+	@${DOCKER_PHP_EXEC} bin/console doctrine:schema:create --env=test
 	@${DOCKER_PHP_EXEC} bin/phpunit --testdox tests/
+
+.PHONY: c-c
+c-c: ## Clear cache
+	@echo "--> Clear cache ..."
+	@${DOCKER_PHP_EXEC} bin/console c:c
