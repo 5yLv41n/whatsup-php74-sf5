@@ -19,7 +19,6 @@ class BookShowTest extends FixtureAwareTestCase
     public function setUp()
     {
         parent::setUp();
-        // execute command to create database if not exists
         $this->addFixture(new BookFixtures());
         $this->executeFixtures();
         $this->entityManager = self::$kernel->getContainer()->get('doctrine')->getManager();
