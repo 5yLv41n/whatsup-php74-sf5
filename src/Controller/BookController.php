@@ -48,6 +48,7 @@ class BookController extends AbstractController
     /**
      * @Route("/book/{book_isbn}", name="book_update", methods={"PUT"})
      * @ParamConverter("book", class="App\Entity\Book", options={"mapping": {"book_isbn" : "isbn"}})
+     * @IsGranted("update", subject="book")
      */
     public function update(Book $book, Request $request): JsonResponse
     {
