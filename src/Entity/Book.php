@@ -163,4 +163,9 @@ class Book implements JsonSerializable
     {
         return $this->createdBy;
     }
+
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
 }

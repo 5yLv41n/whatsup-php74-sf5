@@ -40,6 +40,7 @@ class BookController extends AbstractController
         }
         $bookDTO = BookCreate::createFromJson($request->getContent());
         $book = Book::createFrom($bookDTO);
+        $book->setCreatedBy($this->getUser());
         $this->bookService->save($book);
 
         return new JsonResponse(['status' => 'Book created!'], Response::HTTP_CREATED);
