@@ -38,3 +38,12 @@ services:
                 event: 'postPersist'
         calls:
             - setLogger: ['@logger']
+
+    App\EventListener\Notifier\BookUpdatedNotifier:
+        tags:
+            -
+                name: 'doctrine.orm.entity_listener'
+                entity: 'App\Entity\Book'
+                event: 'postUpdate'
+        calls:
+            - setLogger: ['@logger']
