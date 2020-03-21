@@ -6,6 +6,7 @@ use App\DTO\BookDTO;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use JsonSerializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Polyfill\Uuid\Uuid;
@@ -14,10 +15,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
  * @UniqueEntity(fields={"isbn"}, message="ISBN already exists")
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
  */
 class Book implements JsonSerializable
 {
+    use SoftDeleteableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\Column(type="guid")
@@ -50,11 +53,6 @@ class Book implements JsonSerializable
      * @ORM\Column(type="datetime")
      */
     private DateTime $updatedAt;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private ?DateTime $deletedAt;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -104,41 +102,26 @@ class Book implements JsonSerializable
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getIsbn(): string
     {
         return $this->isbn;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @return DateTimeImmutable
-     */
     public function getPublishingDate(): DateTimeImmutable
     {
         return $this->publishingDate;

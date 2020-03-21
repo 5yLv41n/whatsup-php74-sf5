@@ -47,3 +47,12 @@ services:
                 event: 'postUpdate'
         calls:
             - setLogger: ['@logger']
+
+    App\EventListener\Notifier\BookRemovedNotifier:
+        tags:
+            -
+                name: 'doctrine.event_listener'
+                entity: 'App\Entity\Book'
+                event: 'postSoftDelete'
+        calls:
+            - setLogger: ['@logger']
