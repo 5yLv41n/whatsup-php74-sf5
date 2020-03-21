@@ -10,7 +10,7 @@ class BookDTOAbstractTest extends TestCase
     private string $wrongJson = 'test';
     private string $goodJson = '{"test":"test"}';
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
     }

@@ -37,6 +37,7 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "roave/security-advisories": "dev-master",
+        "spatie/phpunit-snapshot-assertions": "^4.0",
         "symfony/maker-bundle": "^1.14",
         "symfony/phpunit-bridge": "^5.0"
     },

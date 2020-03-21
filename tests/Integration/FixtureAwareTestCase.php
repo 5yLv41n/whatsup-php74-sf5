@@ -15,7 +15,7 @@ abstract class FixtureAwareTestCase extends KernelTestCase
     private ?ORMExecutor $fixtureExecutor = null;
     private ?ContainerAwareLoader $fixtureLoader = null;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         self::bootKernel();

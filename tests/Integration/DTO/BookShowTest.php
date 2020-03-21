@@ -19,7 +19,7 @@ class BookShowTest extends FixtureAwareTestCase
     private EntityManagerInterface $entityManager;
     private UserPasswordEncoderInterface $userPasswordEncoder;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         self::bootKernel();

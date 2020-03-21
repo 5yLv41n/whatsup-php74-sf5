@@ -14,7 +14,7 @@ class IsbnTest extends TestCase
     private string $isbn13 = 'ISBN-13:978-0132350884';
     private ReflectionClass $reflector;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->reflector = new ReflectionClass(Isbn::class);
