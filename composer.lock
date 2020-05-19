@@ -5759,12 +5759,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "9b0501ceb2d00bea5814316c5333d513d7622ed5"
+                "reference": "885e8b1e0bc2096989fd20938342e407e8045186"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/9b0501ceb2d00bea5814316c5333d513d7622ed5",
-                "reference": "9b0501ceb2d00bea5814316c5333d513d7622ed5",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/885e8b1e0bc2096989fd20938342e407e8045186",
+                "reference": "885e8b1e0bc2096989fd20938342e407e8045186",
                 "shasum": ""
             },
             "conflict": {
@@ -5777,7 +5777,8 @@
                 "asymmetricrypt/asymmetricrypt": ">=0,<9.9.99",
                 "aws/aws-sdk-php": ">=3,<3.2.1",
                 "bagisto/bagisto": "<0.1.5",
-                "barrelstrength/sprout-base-email": "<3.9",
+                "barrelstrength/sprout-base-email": "<1.2.7",
+                "barrelstrength/sprout-forms": "<3.9",
                 "bolt/bolt": "<3.6.10",
                 "brightlocal/phpwhois": "<=4.2.5",
                 "buddypress/buddypress": "<5.1.2",
@@ -6020,7 +6021,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2020-05-14T00:01:29+00:00"
+            "time": "2020-05-16T00:00:31+00:00"
         },
         {
             "name": "sebastian/code-unit",
@@ -6688,16 +6689,16 @@
         },
         {
             "name": "spatie/phpunit-snapshot-assertions",
-            "version": "4.2.0",
+            "version": "4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/phpunit-snapshot-assertions.git",
-                "reference": "43dd677ecca9d84b66870478bf61bdf14ae9a1f6"
+                "reference": "537ea9204a81eec661a12538eed1c7222dc9db02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/phpunit-snapshot-assertions/zipball/43dd677ecca9d84b66870478bf61bdf14ae9a1f6",
-                "reference": "43dd677ecca9d84b66870478bf61bdf14ae9a1f6",
+                "url": "https://api.github.com/repos/spatie/phpunit-snapshot-assertions/zipball/537ea9204a81eec661a12538eed1c7222dc9db02",
+                "reference": "537ea9204a81eec661a12538eed1c7222dc9db02",
                 "shasum": ""
             },
             "require": {
@@ -6740,7 +6741,7 @@
                 "spatie",
                 "testing"
             ],
-            "time": "2020-05-11T13:40:20+00:00"
+            "time": "2020-05-19T14:48:19+00:00"
         },
         {
             "name": "symfony/maker-bundle",
