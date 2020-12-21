@@ -33,7 +33,7 @@
         "symfony/polyfill-uuid": "^1.13",
         "symfony/security-bundle": "5.0.*",
         "symfony/validator": "5.1.*",
-        "symfony/yaml": "5.1.*"
+        "symfony/yaml": "5.2.*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
